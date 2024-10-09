@@ -79,8 +79,10 @@ class Server {
 
   configureRoutes() {
     const userRoute = require("./src/routes/userRoute.js");
+    const demandaRoute = require("./src/routes/demandasRoute.js");
 
     this.app.use("/usuarios", userRoute);
+    this.app.use("/demandas", demandaRoute);
   }
 
   startServer() {
