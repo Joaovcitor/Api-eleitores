@@ -72,7 +72,7 @@ const Eleitor = conn.define("Eleitor", {
       }
     }
   },
-  enderecoRua: {
+  enderecoNumero: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
