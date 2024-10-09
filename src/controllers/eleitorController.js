@@ -1,33 +1,56 @@
 const Eleitor = require("../db/models/Eleitor");
+const Lideranca = require("../db/models/LiderencaPolitica");
 
 module.exports = class EleitorController {
   static async store(req, res) {
-    const { name, password, email } = req.body;
+    const {
+      name,
+      tituloDeEleitorNumero,
+      zona,
+      secao,
+      telefone,
+      cpf: numCpf,
+      rg,
+      enderecoRua,
+      email
+    } = req.body;
+
+    const id = req.params.id;
 
     try {
-      const user = await Eleitor.findOne({ where: { email: email } });
-      if (user) {
-        return res.status(400).json({ errors: "Usuário já cadastrado com esse e-mail" })
-      }
-      const salt = bcryptjs.genSaltSync(10);
-      const hashPassword = bcryptjs.hashSync(password, salt);
+      const user = await Eleitor.findOne({ where: { cpf: numCpf } });
+      const lideranca = await Lideranca.findOne({ where: { id: id } });
 
-      console.log("comprimento da senha:", hashPassword.length)
+      if (!lideranca) {
+        return res
+          .status(404)
+          .json({ errors: "Essa Liderança não existe, verifique o ID" });
+      }
+      if (user) {
+        return res.status(400).json({ errors: "Eleitor já cadastrado." });
+      }
 
       const userCreate = {
-        name: name,
-        password: hashPassword,
-        email: email
-      }
+        name,
+        tituloDeEleitorNumero,
+        zona,
+        secao,
+        telefone,
+        cpf: numCpf,
+        rg,
+        enderecoRua,
+        email,
+        liderancaId: id
+      };
 
       await Eleitor.create(userCreate);
 
-      req.session.userId = userCreate.id;
-
-      res.status(200).json({ success: "Usuário criado com sucesso!" })
+      res.status(200).json({ success: "Eleitor criado com sucesso!" });
     } catch (e) {
       console.log(e);
-      res.status(500).json({ errors: "Ocorreu um erro desconhecido ao criar o usuário" })
+      res
+        .status(500)
+        .json({ errors: "Ocorreu um erro desconhecido ao criar o eleitor" });
     }
   }
-}
+};

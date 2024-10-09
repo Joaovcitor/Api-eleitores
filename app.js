@@ -1,14 +1,14 @@
-const express = require('express');
-const { sequelize } = require('./src/config/db.js');
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
-const cookieParser = require('cookie-parser');
-const { config } = require('dotenv');
-const cors = require('cors');
-const helmet = require('helmet');
+const express = require("express");
+const { sequelize } = require("./src/config/db.js");
+const session = require("express-session");
+const FileStore = require("session-file-store")(session);
+const cookieParser = require("cookie-parser");
+const { config } = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
 
-const path = require('path');
-const os = require('os');
+const path = require("path");
+const os = require("os");
 
 config();
 
@@ -35,7 +35,7 @@ class Server {
           callback(new Error("Not allowed by cors"));
         }
       },
-      credentials: true,
+      credentials: true
     };
 
     this.app.use(cors(corsOptions));
@@ -43,7 +43,7 @@ class Server {
 
     this.app.use(
       express.urlencoded({
-        extended: true,
+        extended: true
       })
     );
 
@@ -54,14 +54,14 @@ class Server {
         resave: false,
         saveUninitialized: false,
         store: new FileStore({
-          logFn: function () { },
-          path: path.join(os.tmpdir(), "sessions"),
+          logFn: function () {},
+          path: path.join(os.tmpdir(), "sessions")
         }),
         cookie: {
           secure: false,
           maxAge: 28800000,
-          httpOnly: true,
-        },
+          httpOnly: true
+        }
       })
     );
 
@@ -80,9 +80,13 @@ class Server {
   configureRoutes() {
     const userRoute = require("./src/routes/userRoute.js");
     const demandaRoute = require("./src/routes/demandasRoute.js");
+    const liderancaRoute = require("./src/routes/liderancaRoute.js");
+    const eleitorRoute = require("./src/routes/eleitorRoute.js");
 
     this.app.use("/usuarios", userRoute);
     this.app.use("/demandas", demandaRoute);
+    this.app.use("/liderancas", liderancaRoute);
+    this.app.use("/eleitor", eleitorRoute);
   }
 
   startServer() {

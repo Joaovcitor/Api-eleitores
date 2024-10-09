@@ -50,17 +50,17 @@ const Eleitor = conn.define("Eleitor", {
   telefone: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: { msg: "Telefone já existe" },
+    unique: { msg: "Telefone já existe" }
   },
   cpf: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: { msg: "CPF já existe" },
+    unique: { msg: "CPF já existe" }
   },
   rg: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: { msg: "RG já existe" },
+    unique: { msg: "RG já existe" }
   },
   enderecoRua: {
     type: DataTypes.STRING,
@@ -72,16 +72,16 @@ const Eleitor = conn.define("Eleitor", {
       }
     }
   },
-  enderecoNumero: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: {
-        args: [1, 10],
-        msg: "Numero deve ter entre 1 a 10 caracteres"
-      }
-    }
-  },
+  // enderecoNumero: {
+  //   type: DataTypes.STRING,
+  //   allowNull: false,
+  //   validate: {
+  //     len: {
+  //       args: [1, 10],
+  //       msg: "Numero deve ter entre 1 a 10 caracteres"
+  //     }
+  //   }
+  // },
   liderancaId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -92,4 +92,4 @@ const Eleitor = conn.define("Eleitor", {
   }
 });
 
-module.exports = Eleitor
+module.exports = Eleitor;
