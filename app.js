@@ -82,11 +82,13 @@ class Server {
     const demandaRoute = require("./src/routes/demandasRoute.js");
     const liderancaRoute = require("./src/routes/liderancaRoute.js");
     const eleitorRoute = require("./src/routes/eleitorRoute.js");
+    const authRoute = require("./src/routes/authRoute.js");
 
     this.app.use("/usuarios", userRoute);
     this.app.use("/demandas", demandaRoute);
     this.app.use("/liderancas", liderancaRoute);
     this.app.use("/eleitor", eleitorRoute);
+    this.app.use("/login", authRoute);
   }
 
   startServer() {

@@ -1,5 +1,6 @@
 const conn = require("../conn");
 const { DataTypes } = require("sequelize");
+const Eleitor = require("./Eleitor");
 
 const Lideranca = conn.define("Lideranca", {
   name: {

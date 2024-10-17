@@ -20,11 +20,11 @@ module.exports = function checkData(req, res, next) {
     return res.status(400).json({ errors: "Nome não pode ficar em branco" });
   }
 
-  // if (enderecoBairro.length < 3 || enderecoNumero.length < 1) {
-  //   return res
-  //     .status(400)
-  //     .json({ errors: "Preencha todas as informações do endereço" });
-  // }
+  if (!enderecoNumero || enderecoNumero.length < 1) {
+    return res
+      .status(400)
+      .json({ errors: "Preencha todas as informações do endereço" });
+  }
 
   if (name.length < 3 || name.length > 155) {
     return res
@@ -60,11 +60,11 @@ module.exports = function checkData(req, res, next) {
     });
   }
 
-  // if (!numCpf && numCpf.length > 11) {
-  //   return res
-  //     .status(400)
-  //     .json({ errors: "CPF tem que ter exatamente 11 caracteres!" });
-  // }
+  if (!numCpf || numCpf.length > 11) {
+    return res
+      .status(400)
+      .json({ errors: "CPF tem que ter exatamente 11 caracteres!" });
+  }
 
   if (!rg || validator.isEmpty(rg)) {
     return res.status(400).json({

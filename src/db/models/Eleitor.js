@@ -1,7 +1,8 @@
 const conn = require("../conn");
 const { DataTypes } = require("sequelize");
+const Lideranca = require("./LiderencaPolitica");
 
-const Eleitor = conn.define("Eleitor", {
+const Eleitor = conn.define("Eleitors", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -72,16 +73,16 @@ const Eleitor = conn.define("Eleitor", {
       }
     }
   },
-  // enderecoNumero: {
-  //   type: DataTypes.STRING,
-  //   allowNull: false,
-  //   validate: {
-  //     len: {
-  //       args: [1, 10],
-  //       msg: "Numero deve ter entre 1 a 10 caracteres"
-  //     }
-  //   }
-  // },
+  enderecoNumero: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: {
+        args: [1, 10],
+        msg: "Número da residência, não pode ficar em branco!"
+      }
+    }
+  },
   liderancaId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -90,6 +91,13 @@ const Eleitor = conn.define("Eleitor", {
       key: "id"
     }
   }
+});
+
+Lideranca.hasMany(Eleitor, {
+  foreignKey: "liderancaId"
+});
+Eleitor.belongsTo(Lideranca, {
+  foreignKey: "liderancaId"
 });
 
 module.exports = Eleitor;
