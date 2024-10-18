@@ -18,7 +18,7 @@ class Server {
   constructor() {
     this.app = express();
     // aqui vai os sites permitidos do CORS
-    this.whiteList = [];
+    this.whiteList = ["http://localhost:3001"];
 
     this.configureMiddlewares();
     this.configureRoutes();
@@ -54,7 +54,7 @@ class Server {
         resave: false,
         saveUninitialized: false,
         store: new FileStore({
-          logFn: function () {},
+          logFn: function () { },
           path: path.join(os.tmpdir(), "sessions")
         }),
         cookie: {

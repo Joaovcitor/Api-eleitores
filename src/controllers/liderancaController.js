@@ -46,4 +46,16 @@ module.exports = class EleitorController {
         .json({ errors: "Ocorreu um erro desconhecido ao criar a liderança" });
     }
   }
+
+  static async index(req, res) {
+    try {
+      const liderancas = await Lideranca.findAll();
+      res.status(200).json({ liderancas });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({
+        errors: "Ocorreu um erro desconhecido ao buscar os eleitores"
+      });
+    }
+  }
 };
